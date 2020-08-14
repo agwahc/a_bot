@@ -1,0 +1,52 @@
+#:kivy 1.10.1
+
+FloatLayout:
+    username: username.text
+    password: pwd.text
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: '/home/agwah/PycharmProjects/a_bot/breach/Images/silver.jpg'
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 30
+        size_hint: .3, .3
+        pos_hint: {'center_x': .5, 'center_y': .6}
+
+        TextInput:
+            id: username
+            size_hint_x: 1
+            hint_text: "Enter Username"
+            focus: True
+
+        TextInput:
+            id: pwd
+            size_hint_x: 1
+            hint_text: "Enter Password"
+            password: True
+
+        Button:
+            text: "Login"
+            bold: True
+            size_hint_y: 1
+            background_color: (0,1,0,.9)
+            on_release: root.validate(username, password)
+
+class Login(FloatLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        #self.cols = 1
+        #Window.size = (500, 300)
+        #self.add_widget(Label(text="Login UI Example"))
+        #self.add_widget(Label(text="Username: "))
+        box = BoxLayout(orientation='vertical', spacing=(10), size_hint=(.3, .3), pos_hint={'center_x': .5, 'center_y': .6})
+        self.username = TextInput(multiline=False, write_tab=False, size_hint_x=1)
+        self.username.focus = True
+        box.add_widget(self.username)
+        #self.add_widget(Label(text="Password: "))
+        self.password = TextInput(multiline=False, write_tab=False, password=True, size_hint_x=1)
+        box.add_widget(self.password)
+        self.login = Button(text="Login", bold=True, background_color=(0, 1, 0, .9))
+        self.login.bind(on_press=self.validate)
+        box.add_widget(self.login)
